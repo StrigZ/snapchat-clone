@@ -35,17 +35,10 @@ const Preview = () => {
   const sendPost = () => {
     const id = uuidv4();
 
-    const storageRef = ref(storage, `posts/${id}`);
-    const uploadTask = uploadBytesResumable(
-      storageRef,
-      cameraImage,
-      "data_url"
-    );
-    uploadTask.on(
-      "state_changed",
-      null,
-      (error) => console.log(error.message),
-      () => {
+    const storageRef = ref(storage, `posts/${id}.jpg`);
+    uploadString(storageRef, cameraImage, "data_url")
+      .catch((e) => console.log(e.message))
+      .then((data) => {
         getDownloadURL(storageRef).then((url) => {
           addDoc(collection(db, "posts"), {
             imageUrl: url,
@@ -55,8 +48,8 @@ const Preview = () => {
             timestamp: serverTimestamp(),
           });
         });
-      }
-    );
+      });
+
     navigate("/");
   };
   useEffect(() => {

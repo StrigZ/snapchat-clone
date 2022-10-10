@@ -24,7 +24,9 @@ import {
 } from "firebase/storage";
 import { db, storage } from "./firebase";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { selectUser } from "./features/appSlice";
 const Preview = () => {
+  const user = useSelector(selectUser);
   const cameraImage = useSelector(selectCameraImage);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -42,15 +44,15 @@ const Preview = () => {
         getDownloadURL(storageRef).then((url) => {
           addDoc(collection(db, "posts"), {
             imageUrl: url,
-            username: "Sonny",
+            username: user.username,
             read: false,
-            //pfp
+            profilePic: user.profilePic,
             timestamp: serverTimestamp(),
           });
         });
       });
 
-    navigate("/");
+    navigate("/chats");
   };
   useEffect(() => {
     if (!cameraImage) {

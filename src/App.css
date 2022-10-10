@@ -8,4 +8,20 @@
 }
 
 .app__body {
+  background: url("https://www.pngkey.com/png/full/859-8598072_picture-freeuse-library-silhoutte-mobile-at-getdrawings-cell.png")
+    no-repeat center;
+  background-size: contain;
+  height: 541px;
+  width: 384px;
+  padding: 67px;
+}
+
+.app__logo {
+  object-fit: contain;
+  height: 100px;
+}
+.app__bodyBackground {
+  background-color: #fff;
+  height: 400px;
+  width: 250px;
 }
